@@ -1,0 +1,18 @@
+h1. IDEAS
+
+shelly add repo github/grimen/my_scripts
+shelly list repos
+shelly install_memchached (if .shelly.yml config exists with alias install_memchached: github/grimen/my_scripts/install_memchached)
+
+shelly add alias gh_scripts:github/grimen/my_scripts
+shelly list aliases
+shelly gh_scripts/install_memchached
+shelly add alias favorite_script:github/grimen/my_scripts/install_memchached
+shelly favorite_script
+
+shelly help
+
+h1. DONE
+
+shelly {script_source}:{script_indentifier} => shelly pastie:123456
+shelly github:{user}/{repo}/{file}/{version} => shelly github:grimen/my_shell_scripts/install_geoip-city.sh/89ac494d95710...
