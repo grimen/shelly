@@ -1,7 +1,9 @@
+require File.expand_path(File.join(File.dirname(__FILE__), 'base'))
+
 module Shelly
   module ScriptSource
     module Scm
-      class Github < Shelly::ScriptSource::Base
+      class Github < Shelly::ScriptSource::Scm::Base
         
         SCRIPT_SOURCE_BASE_URL = 'http://github.com'.freeze
         

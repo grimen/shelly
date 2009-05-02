@@ -1,10 +1,9 @@
-# Example configuration
----
-repos:
-  github:
-    - grimen/my_shell_scripts
-aliases:
-  github:
-    :my_scripts: grimen/my_shell_scripts
-  pastie:
-    :my_favorite_script: "436580"
+--- 
+repos: 
+  github: 
+  - grimen/my_shell_scripts
+aliases: 
+  github: 
+    my_scripts: grimen/my_shell_scripts
+  pastie: 
+    my_favorite_script: "436580"

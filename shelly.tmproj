@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>bin/shelly</string>
+	<string>lib/store/base.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -21,39 +21,39 @@
 	<integer>200</integer>
 	<key>metaData</key>
 	<dict>
-		<key>TODO.textile</key>
+		<key>lib/shelly.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>4</integer>
 				<key>line</key>
-				<integer>17</integer>
+				<integer>174</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>170</integer>
 		</dict>
-		<key>bin/shelly</key>
+		<key>lib/store/base.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>62</integer>
+				<integer>6</integer>
 				<key>line</key>
-				<integer>42</integer>
+				<integer>12</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>17</integer>
+			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>TODO.textile</string>
-		<string>bin/shelly</string>
+		<string>lib/store/base.rb</string>
+		<string>lib/shelly.rb</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<false/>
@@ -93,13 +93,6 @@
 							<true/>
 							<key>subItems</key>
 							<dict>
-								<key>plain</key>
-								<dict>
-									<key>isExpanded</key>
-									<true/>
-									<key>subItems</key>
-									<dict/>
-								</dict>
 								<key>scm</key>
 								<dict>
 									<key>isExpanded</key>
@@ -108,6 +101,13 @@
 									<dict/>
 								</dict>
 							</dict>
+						</dict>
+						<key>store</key>
+						<dict>
+							<key>isExpanded</key>
+							<true/>
+							<key>subItems</key>
+							<dict/>
 						</dict>
 					</dict>
 				</dict>
@@ -122,6 +122,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{51, 78}, {1253, 800}}</string>
+	<string>{{75, 78}, {1253, 800}}</string>
 </dict>
 </plist>

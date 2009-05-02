@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 
-require File.join(File.dirname(__FILE__), '..', 'lib', 'shelly')
+require File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib', 'shelly'))
 
-Shelly.run(ARGV)
+Shelly.run!(ARGV)

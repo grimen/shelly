@@ -1,0 +1,3 @@
+h1. SHELLY *draft*
+
+Remotely stored shell scripts runned locally - shell scripts á la rubygems sort of. =)
