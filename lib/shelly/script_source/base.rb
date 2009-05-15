@@ -3,7 +3,6 @@ module Shelly
     class Base
       
       DEFAULT_SCRIPT_DIRECTORY = '/tmp'.freeze # could not get this to work
-      #DEFAULT_SCRIPT_DIRECTORY = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'bin')) # hack to get ./* shell command to work
       DEFAULT_SCRIPT_EXTENSION = ''.freeze
       
       attr_accessor :script_file_name, :script_file_path, :fetch_url
@@ -27,9 +26,12 @@ module Shelly
           puts "============================================================================="
           Shelly::ShellScript.execute!(self.script_file_path)
           puts "\n============================================================================="
+          
           print "[shelly]: Cleaning up..."
           Shelly::ShellScript.delete!(self.script_file_path)
           print "DONE\n"
+          
+          puts "[shelly]: END\n"
           
         rescue StandardError => m
           puts "[shelly]: Error: #{m}"

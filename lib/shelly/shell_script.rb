@@ -7,45 +7,71 @@ module Shelly
     end
     
     def make_executable!(script_path)
-      `sudo chmod 777 #{script_path}`
+      `sudo chmod 777 #{script_path}` if File.exist?(script_path)
     end
     
     def execute!(script_path)
-      Shelly::ShellScript.make_executable!(script_path)
-      Shelly::ShellScript.ensure_script_format!(script_path)
-      puts `sudo ./bin/#{File.basename(script_path)}`
-      
-      # FIXME: How come this not working? Thse above don't outputs result until finished, needs solution.
-      #File.open("#{script_path}", 'r') do |file|
-      #  begin
-      #    while line = file.gets
-      #      puts line
-      #      puts `sudo #{line}`
-      #    end
-      #  rescue StandardError => e
-      #    puts "** Error: #{e}"
-      #  ensure
-      #    file.close
-      #  end
-      #end
+      if self.valid?(script_path)
+        self.make_executable!(script_path)
+        self.ensure_format!(script_path)
+        self.execute_with_output!(script_path, false)
+      else
+        puts "Invalid script source."
+      end
+    end
+    
+    def execute_with_output!(script_path, advanced = false)
+      if advanced
+        # Runs the script with output directly, but causes paths to be wrong. =/
+        File.open(script_path, 'r') do |file|
+          begin
+            while line = file.gets
+              # Print shell script instruction
+              # print line
+              # Run everyting except empty lines and comments + print out result.
+              print `#{line.strip}` unless line =~ /^(\#|\n)/
+            end
+          rescue StandardError => e
+            puts "Error: #{e}"
+          ensure
+            file.close
+          end
+        end
+      else
+        puts `sudo #{script_path}`
+      end
     end
     
     def delete!(script_path)
-      `sudo rm #{script_path}`
+      `sudo rm #{script_path}` if File.exist?(script_path)
     end
     
-    def ensure_script_format!(script_path)
-      begin
-        file = File.open(script_path, 'r')  
-        script = file.read
-        file.close
-        file = File.open(script_path, 'w') 
-        script.gsub!(/\r/, '')
-        file.write(script)
-      rescue StandardError => e
-        puts "Error: #{e}"
-      ensure
-        file.close if file
+    def valid?(script_path)
+      File.open(script_path, 'r') do |file|
+        begin
+          script = file.read
+          # Contains a shebang? I.e. is it a valid script?
+          script =~ /\#\!\/bin/
+        rescue StandardError => e
+          puts "Error: #{e}"
+        ensure
+          file.close
+        end
+      end
+    end
+    
+    def ensure_format!(script_path)
+      File.open(script_path, 'r+') do |file|
+        begin
+          script = file.read
+          # Remove invalid new-line returns
+          script.gsub!(/\r/, '')
+          file.write(script)
+        rescue StandardError => e
+          puts "Error: #{e}"
+        ensure
+          file.close
+        end
       end
     end
     

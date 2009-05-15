@@ -4,27 +4,29 @@ module Shelly
   module Store
     class Alias < Shelly::Store::Base
       
-      ALIASES_CONFIG_KEY = 'aliases'.freeze
+      CONFIG_KEY = 'aliases'.freeze
       
       class << self
         
         def add(what)
-          what_parts = what.split(':')
+          whats = what.split(':')
           config = self.load_config
-          config[ALIASES_CONFIG_KEY] ||= {}
-          config[ALIASES_CONFIG_KEY][what_parts.shift.to_s] = what_parts.join(':').to_s
+          config[CONFIG_KEY] ||= {}
+          config[CONFIG_KEY][whats[0].to_s] ||= {}
+          config[CONFIG_KEY][whats.shift.to_s].merge!(whats.shift => whats.join(':'))
           self.store_config(config)
         end
         
         def remove(what)
-          what_parts = what.split(':')
+          whats = what.split(':')
           config = self.load_config
-          config[ALIASES_CONFIG_KEY].delete(what.to_s)
+          config[CONFIG_KEY][whats[0].to_s].delete(whats[1].to_s) if config[CONFIG_KEY][whats[0].to_s]
+          config[CONFIG_KEY][whats[0].to_s] = nil if config[CONFIG_KEY][whats[0].to_s] == {}
           self.store_config(config)
         end
         
         def list
-          self.load_config[ALIASES_CONFIG_KEY].to_yaml
+          self.load_config[CONFIG_KEY].to_yaml
         end
         
       end

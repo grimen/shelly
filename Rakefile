@@ -3,11 +3,11 @@ require 'rake/testtask'
 require 'rake/rdoctask'
 
 NAME = "shelly"
-SUMMARY = %Q{}
+SUMMARY = %Q{Remotely stored shell scripts runned locally - shell scripts á la rubygems sort of.}
 HOMEPAGE = "http://github.com/grimen/#{NAME}/tree/master"
 AUTHOR = "Jonas Grimfelt"
 EMAIL = "grimen@gmail.com"
-SUPPORT_FILES = %w(MIT-LICENSE README.textile TODO.textile CHANGELOG.textile)
+SUPPORT_FILES = %w(README.textile TODO.textile CHANGELOG.textile)
 
 begin
   require 'jeweler'
@@ -20,7 +20,7 @@ begin
     gem.email = EMAIL
     
     gem.require_paths = %w{lib}
-    gem.files = %w(Rakefile) + SUPPORT_FILES + Dir.glob(File.join('{bin,config,lib,test}', '**', '*'))
+    gem.files = %w(MIT-LICENSE Rakefile) + SUPPORT_FILES + Dir.glob(File.join('{bin,config,lib,test}', '**', '*'))
     gem.executables = %w(shelly)
     gem.extra_rdoc_files = SUPPORT_FILES
   end

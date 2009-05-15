@@ -9,10 +9,6 @@ module Shelly
         
         protected
         
-        def is_url(url)
-          url =~ /#{SCRIPT_SOURCE_BASE_URL}/
-        end
-        
         def script_url(gist_id)
           "http://#{SCRIPT_SOURCE_BASE_URL}/#{gist_id}.txt"
         end

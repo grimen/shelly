@@ -1,25 +1,25 @@
 h1. IDEAS
 
-Make use of?: http://stackoverflow.com/questions/166347/how-do-i-use-ruby-for-shell-scripting
-
-shelly add repo github/grimen/my_scripts
+# after: shelly add repo github:grimen/my_scripts
 shelly install_memchached (if .shelly.yml config exists with alias install_memchached: github/grimen/my_scripts/install_memchached)
 
-shelly gh_scripts/install_memchached
-shelly add alias favorite_script1:github/grimen/my_scripts
-shelly add alias favorite_script2:github/grimen/my_scripts/install_memchached
+# after: shelly add alias favorite_script1:github/grimen/my_scripts
 shelly favorite_script1
 
 shelly help
 
 h1. DONE
 
-shelly http://...
-shelly {script_source}:{script_indentifier} => shelly pastie:123456
-shelly github:{user}/{repo}/{file}/{version} => shelly github:grimen/my_shell_scripts/install_geoip-city.sh/89ac494d95710...
+shelly add repo github:grimen/my_scripts
+shelly add alias favorite_script1:github/grimen/my_scripts
+shelly add alias favorite_script2:github/grimen/my_scripts/install_memchached
 
+shelly run http://...
+shelly run {script_source}:{script_indentifier} => shelly pastie:123456
+shelly run github:{user}/{repo}/{file}/{version} => shelly github:grimen/my_shell_scripts/install_geoip-city.sh/89ac494d95710...
+
+shelly list
+shelly list repos
 shelly list aliases
-shelly list aliases repos
-shelly list aliases aliases
 
 shelly add alias foo:pastie:123456
