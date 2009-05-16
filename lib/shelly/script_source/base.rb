@@ -15,6 +15,7 @@ module Shelly
       
       def run!
         begin
+          puts "============================================================================="
           puts "[shelly]: Script source type: #{self.script_source.upcase}"
           puts "[shelly]: Script source URL: #{self.fetch_url}"
           

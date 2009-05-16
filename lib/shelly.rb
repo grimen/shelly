@@ -60,7 +60,6 @@ module Shelly
           script_source = whats.shift.to_sym
           script_id = whats.join('/')
           
-          puts what
           if valid_script_source?(script_source)
             case script_source
             when :github then Shelly::ScriptSource::Scm::Github.new(script_id).run!
