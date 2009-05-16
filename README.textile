@@ -55,6 +55,7 @@ Run *custom* script source:
 Example Output:
 
 <pre>$ shelly run pastie:478898
+=============================================================================
 [shelly]: Script source type: PASTIE
 [shelly]: Script source URL: http://pastie.org/478898.txt
 [shelly]: Fetching script...DONE
