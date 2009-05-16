@@ -1,3 +1,103 @@
 h1. SHELLY
 
-*draft*
+Remotely stored shell scripts executable locally.
+
+h2. The Problem
+
+There are plenty of tools out there that makes it more or less straightforward to run scripts on a remote machine. What's funny though is that many people tend to spend more time on trying to get libraries to work on the local machine, because this is the place where the development and testing takes place. The reason for this is that compiling 3rd party libraries can be a real pain when it comes to different hardware architecture, OSs, OS versions, etc. No, package managers (such as port, apt-get, etc.) is not solving this all the way - sometimes not at all. What I usually do to in such cases is to find and copy-paste shell script "setup recipes" from docs/forums/blogs that - well, usually - works for a specific setup. This is not very scalable though, and actually a waste in many senses:
+
+Key reasons:
+
+* Old-school sharing => Setup recipes that works are spread thorough blogs/forums mostly, there's no single resource if you not having your own repository and cloning the scripts manually.
+* No versioning => Same 'ol scripts might stop being "the way of doing it" because of library changes
+* New machine => Same solution probably not works now, i.e. back to finding new setup recipes
+* Conventions?
+
+h2. A Solution: Shelly
+
+Shelly solves this by letting you run scripts - on your local machine - from a remote server like local shell commands almost. You don't need to get paid storage for this; Shelly can load scripts from code hosts solutions like GitHub, Gist, Pastie, etc., which is usually used for purposes of sharing code/snippets with each other anyway.
+
+Key concepts:
+
+* Run remotely stored setup scripts/recipes on local machine directly - without downloading/copying stuff manually.
+* No new DSL, just a command that runs a shell script resource (Note: No Windows scripting support).
+* Easy to share setup recipes (shell scripts) - shell script platform?
+* Easy on the eye and memory; easy to learn how to use and remember how to access a script.
+* Out-of-the-box supported script sources: GitHub repos, Gist, Pastie, Pastebin, Raw/URL.
+* Local script aliases for personalization - optional though.
+
+h2. Installation
+
+<pre>sudo gem install grimen-shelly</pre>
+
+h2. Basic Usage
+
+Run *GitHub* script source:
+
+<pre>shelly run github:grimen/my_shell_scripts/install_geoip-city.sh</pre>
+
+Run *Gist* script source:
+
+<pre>shelly run gist:112090</pre>
+
+Run *Pastie* script source:
+
+<pre>shelly run pastie:478898</pre>
+
+Run *Pastebin* script source:
+
+<pre>shelly run pastebin:23233</pre>
+
+Run *custom* script source:
+
+<pre>shelly run http://somedomain.com/my_scripts/quack.sh</pre>
+
+Example Output:
+
+<pre>$ shelly run pastie:478898
+[shelly]: Script source type: PASTIE
+[shelly]: Script source URL: http://pastie.org/478898.txt
+[shelly]: Fetching script...DONE
+[shelly]: Executing script...
+============================================================== SCRIPT =======
+Quack, quack!
+Quack, quack!
+=============================================================================
+[shelly]: Cleaning up...DONE
+[shelly]: END</pre>
+
+h2. Advanced Usage
+
+h3. Repositories
+
+Add repository:
+
+<pre>shelly add repo github:grimen/my_shell_scripts</pre>
+
+Note: The files within this repo is now accessible. Example-file: @install_geoip-city.sh@
+
+Run:
+
+<pre>shelly run install_geoip-city.sh</pre>
+
+h3. Aliases
+
+Add alias:
+
+<pre>shelly add alias quack:gist/112090</pre>
+
+Run:
+
+<pre>shelly run hello_world</pre>
+
+h2. NOTE: Security Implications
+
+There are obvious security implications with running shell scripts from remote locations, but the same applies to scripts downloaded manually - which is why Shelly got born in the first place. As long as you know what you doing, security should not be a big issue really. You'll need root access (sudo) to run a script no matter if it's required by the script or not.
+
+h2. Bugs & Features
+
+Shelly is in a sort of conceptual stage, so a lot of improvements can be made. If you got any suggestions, issues, or find any vicious bugs, just file an issue or notify me.
+
+h2. License
+
+Copyright (c) 2009 Jonas Grimfelt, released under the MIT-license.

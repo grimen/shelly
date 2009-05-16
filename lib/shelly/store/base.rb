@@ -5,7 +5,7 @@ module Shelly
     class Base
       
       DEFAULT_CONFIG_FILE_PATH = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', 'config', 'shelly.yml')).freeze
-      CUSTOM_CONFIG_FILE_PATH = '' # File.expand_path(File.join('~', '.shelly')).freeze
+      CUSTOM_CONFIG_FILE_PATH = File.expand_path(File.join('~', '.shelly')).freeze
       
       class << self
         
@@ -15,6 +15,7 @@ module Shelly
         
         def create_root_config!
           `sudo cp #{self::DEFAULT_CONFIG_FILE_PATH} #{self::CUSTOM_CONFIG_FILE_PATH}`
+          `sudo chmod 664 #{self::CUSTOM_CONFIG_FILE_PATH}`
         end
         
         def config_file_path
@@ -33,11 +34,6 @@ module Shelly
         
         def list
           load_config.to_yaml rescue ''
-        end
-        
-        def include?(arg)
-          config = load_config
-          config[self.class.name.downcase.to_sym].keys.include?(arg) rescue false
         end
         
       end

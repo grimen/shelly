@@ -23,11 +23,16 @@ module Shelly
           self.script_file_path = self.script_path(self.script_file_name)
         end
         
+        def self.files(user_id, repo_name, commit_id = nil)
+          commit_id ||= Repository.find(user_id, repo_name).commits.first.id
+          repo_files = FileObject.find(user_id, repo_name, commit_id).collect { |f| f.name }
+        end
+        
         protected
         
-        def script_url(user_id, repo_name, file_name, commit_sha = nil)
-          commit_sha ||= Repository.find(user_id, repo_name).commits.first.id
-          "#{SCRIPT_SOURCE_BASE_URL}/#{user_id}/#{repo_name}/raw/#{commit_sha}/#{file_name}"
+        def script_url(user_id, repo_name, file_name, commit_id = nil)
+          commit_id ||= Repository.find(user_id, repo_name).commits.first.id
+          "#{SCRIPT_SOURCE_BASE_URL}/#{user_id}/#{repo_name}/raw/#{commit_id}/#{file_name}"
         end
         
       end

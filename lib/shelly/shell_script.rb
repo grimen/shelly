@@ -47,17 +47,19 @@ module Shelly
     end
     
     def valid?(script_path)
+      result = false
       File.open(script_path, 'r') do |file|
         begin
           script = file.read
           # Contains a shebang? I.e. is it a valid script?
-          script =~ /\#\!\/bin/
+          result = (script =~ /^\#\!\//)
         rescue StandardError => e
           puts "Error: #{e}"
         ensure
           file.close
         end
       end
+      result
     end
     
     def ensure_format!(script_path)

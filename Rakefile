@@ -7,7 +7,7 @@ SUMMARY = %Q{Remotely stored shell scripts runned locally - shell scripts á la 
 HOMEPAGE = "http://github.com/grimen/#{NAME}/tree/master"
 AUTHOR = "Jonas Grimfelt"
 EMAIL = "grimen@gmail.com"
-SUPPORT_FILES = %w(README.textile TODO.textile CHANGELOG.textile)
+SUPPORT_FILES = %w(README.textile TODO.textile)
 
 begin
   require 'jeweler'
@@ -25,7 +25,7 @@ begin
     gem.extra_rdoc_files = SUPPORT_FILES
   end
 rescue LoadError
-  puts "Jeweler, or one of its dependencies, is not available. Install it with: sudo NAME install technicalpickles-jeweler -s http://NAMEs.github.com"
+  puts "Jeweler, or one of its dependencies, is not available. Install it with: sudo NAME install technicalpickles-jeweler -s http://gems.github.com"
 end
 
 desc %Q{Run unit tests for "#{NAME}".}

@@ -12,21 +12,29 @@ module Shelly
           whats = what.split(':')
           config = self.load_config
           config[CONFIG_KEY] ||= {}
-          config[CONFIG_KEY][whats[0].to_s] ||= {}
-          config[CONFIG_KEY][whats.shift.to_s].merge!(whats.shift => whats.join(':'))
+          config[CONFIG_KEY].merge!(whats.shift => whats.join(':'))
           self.store_config(config)
         end
         
         def remove(what)
           whats = what.split(':')
           config = self.load_config
-          config[CONFIG_KEY][whats[0].to_s].delete(whats[1].to_s) if config[CONFIG_KEY][whats[0].to_s]
-          config[CONFIG_KEY][whats[0].to_s] = nil if config[CONFIG_KEY][whats[0].to_s] == {}
+          config[CONFIG_KEY].delete(whats.shift)
+          config[CONFIG_KEY] = nil if config[CONFIG_KEY] == {}
           self.store_config(config)
         end
         
         def list
-          self.load_config[CONFIG_KEY].to_yaml
+          self.config.to_yaml
+        end
+        
+        def include?(key)
+          config = load_config
+          config[CONFIG_KEY].keys.include?(key) rescue false
+        end
+        
+        def value(key)
+          "#{config[CONFIG_KEY][key.to_s]}"
         end
         
       end

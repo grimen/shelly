@@ -16,40 +16,7 @@ module Shelly
       :list => [:repos, :aliases],
       :help => []
     }.freeze
-  
-  def internet_connection?
-    uri = URI('http://google.com')
-    begin 
-      http = Net::HTTP.new(uri.host, uri.port) 
-      http.open_timeout = 5
-      http.start
-      http.finish
-      true
-    rescue
-      false
-    end
-  end
-  
-  def valid_alias?(arg)
-    Shelly::Store::Alias.include?(arg)
-  end
-  
-  def valid_repo?(arg)
-    Shelly::Store::Repo.include?(arg)
-  end
-  
-  def valid_script_source?(arg)
-    VALID_SCRIPT_SOURCES.include?(arg.to_sym)
-  end
-  
-  def valid_command?(*args)
-    if args[1]
-      VALID_COMMANDS[args[0].to_sym].empty? || VALID_COMMANDS[args[0].to_sym].include?(args[1].to_sym)
-    else
-      VALID_COMMANDS.keys.include?(args[0].to_sym)
-    end
-  end
-  
+    
   def run(args)
     (args ||= []).collect! { |arg| arg.strip }
     
@@ -57,30 +24,18 @@ module Shelly
       puts "[shelly]: You are not connected to the Internet."
     else
       unless args.empty?
-        
-        if valid_alias?(args[0])
-          args[0] = Shelly::Store::Alias.config[args[0].to_s]
-        elsif valid_repo?(args[0])
-          # TODO: Get repo
-        end
-        
-        if args.size > 0
-          if Shelly.valid_command?(args[0], args[1])
-            case args[0].to_sym
-            when :run then Shelly.run!(args[1])
-            when :create then Shelly.create!(args[1])
-            when :add then Shelly.add!(args[1], args[2])
-            when :remove then Shelly.remove!(args[1], args[2])
-            when :list then Shelly.list(args[1])
-            when :help then Shelly.help(args[1])
-            end
-          else
-            puts "[shelly]: FAIL: '#{args[1]}' is not a valid command for '#{args[0]}'. Try 'help' for help."
+        if Shelly.valid_command?(args[0], args[1])
+          case args[0].to_sym
+          when :run then Shelly.run!(args[1])
+          when :create then Shelly.create!(args[1])
+          when :add then Shelly.add!(args[1], args[2])
+          when :remove then Shelly.remove!(args[1], args[2])
+          when :list then Shelly.list(args[1])
+          when :help then Shelly.help(args[1])
           end
         else
-          puts "[shelly]: FAIL: No valid command."
+          puts "[shelly]: FAIL: '#{args[1]}' is not a valid command for '#{args[0]}'. Try 'help' for help."
         end
-        
       else
         puts "[shelly]: FAIL: No valid command."
       end
@@ -91,20 +46,34 @@ module Shelly
   def run!(what)
     if what
       begin
-        whats = what.split(':')
-        script_source = whats[0].to_sym
-        script_id = whats[1]
+        if Shelly::Store::Alias.include?(what)
+          # Alias, e.g. "shelly run hello_world"
+          what = Shelly::Store::Alias.value(what)
+        elsif Shelly::Store::Repo.include?(what)
+          # File from repo, e.g. "shelly run hello_world"
+          what = Shelly::Store::Repo.value(what)
+        end
         
-        if valid_script_source?(script_source)
-          case script_source
-          when :github then Shelly::ScriptSource::Scm::Github.new(script_id).run!
-          when :gist then Shelly::ScriptSource::Plain::Gist.new(script_id).run!
-          when :pastie then Shelly::ScriptSource::Plain::Pastie.new(script_id).run!
-          when :pastebin then Shelly::ScriptSource::Plain::Pastebin.new(script_id).run!
-          when :raw then Shelly::ScriptSource::Plain::Raw.new(script_id).run!
+        if what.include?(':')
+          # Explicit script source, e.g. "shelly run pastie:1234"
+          whats = what.split(':')
+          script_source = whats.shift.to_sym
+          script_id = whats.join('/')
+          
+          puts what
+          if valid_script_source?(script_source)
+            case script_source
+            when :github then Shelly::ScriptSource::Scm::Github.new(script_id).run!
+            when :gist then Shelly::ScriptSource::Plain::Gist.new(script_id).run!
+            when :pastie then Shelly::ScriptSource::Plain::Pastie.new(script_id).run!
+            when :pastebin then Shelly::ScriptSource::Plain::Pastebin.new(script_id).run!
+            when :raw then Shelly::ScriptSource::Plain::Raw.new(script_id).run!
+            end
+          else
+            Shelly::ScriptSource::Plain::Raw.new(script_id).run!
           end
         else
-          Shelly::ScriptSource::Plain::Raw.new(script_id).run!
+          puts "[shelly]: FAIL: No valid script source."
         end
       rescue StandardError => e
         puts "#{e}"
@@ -147,8 +116,7 @@ module Shelly
   end
   
   def list(from)
-    from ||= :all
-    case from.to_sym
+    case (from ||= :all).to_sym
     when :repos then puts Shelly::Store::Repo.list
     when :aliases then puts Shelly::Store::Alias.list
     else puts Shelly::Store::Base.list
@@ -161,5 +129,42 @@ module Shelly
   end
   
   extend self
+  
+  def internet_connection?
+    uri = URI('http://google.com')
+    begin 
+      http = Net::HTTP.new(uri.host, uri.port) 
+      http.open_timeout = 5
+      http.start
+      http.finish
+      true
+    rescue
+      false
+    end
+  end
+  
+  def valid_alias?(arg)
+    Shelly::Store::Alias.include?(arg)
+  end
+  
+  def valid_repo?(arg)
+    Shelly::Store::Repo.include?(arg)
+  end
+  
+  def valid_repo_file?(arg)
+    Shelly::Store::Repo.include_file?(arg)
+  end
+  
+  def valid_script_source?(arg)
+    VALID_SCRIPT_SOURCES.include?(arg.to_sym)
+  end
+  
+  def valid_command?(*args)
+    if args[1]
+      VALID_COMMANDS[args[0].to_sym].empty? || VALID_COMMANDS[args[0].to_sym].include?(args[1].to_sym)
+    else
+      VALID_COMMANDS.keys.include?(args[0].to_sym)
+    end
+  end
   
 end

@@ -1,12 +1,6 @@
----
+--- 
 repos: 
   github: 
+  - grimen/my_shell_scripts
 aliases: 
-  pastebin: 
-    aaa: "1234"
-    aaaa: "1234"
-  github: 
-    my_scripts: grimen/my_shell_scripts/install_memcached_osx
-  pastie: 
-    my_favorite_script: "436580"
-  pastebin2: 
+  quack: gist:112090

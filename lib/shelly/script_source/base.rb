@@ -23,9 +23,9 @@ module Shelly
           print "DONE\n"
           
           puts "[shelly]: Executing script..."
-          puts "============================================================================="
+          puts "============================================================== SCRIPT ======="
           Shelly::ShellScript.execute!(self.script_file_path)
-          puts "\n============================================================================="
+          puts "============================================================================="
           
           print "[shelly]: Cleaning up..."
           Shelly::ShellScript.delete!(self.script_file_path)

@@ -1,25 +1,10 @@
-h1. IDEAS
+h1. TODO
 
-# after: shelly add repo github:grimen/my_scripts
-shelly install_memchached (if .shelly.yml config exists with alias install_memchached: github/grimen/my_scripts/install_memchached)
+h2. Next
 
-# after: shelly add alias favorite_script1:github/grimen/my_scripts
-shelly favorite_script1
-
-shelly help
-
-h1. DONE
-
-shelly add repo github:grimen/my_scripts
-shelly add alias favorite_script1:github/grimen/my_scripts
-shelly add alias favorite_script2:github/grimen/my_scripts/install_memchached
-
-shelly run http://...
-shelly run {script_source}:{script_indentifier} => shelly pastie:123456
-shelly run github:{user}/{repo}/{file}/{version} => shelly github:grimen/my_shell_scripts/install_geoip-city.sh/89ac494d95710...
-
-shelly list
-shelly list repos
-shelly list aliases
-
-shelly add alias foo:pastie:123456
+* Feature: shelly help
+* Enhance: Make the shell script execution output more *stable*, i.e. not being printed out in wrong order
+* Enhance: Arguments handling; make use of existing lib for nicer args-parsing?
+* Feature: Write boring tests
+* Other: Comment the code where needed - for everyone's best
+* ____________?
