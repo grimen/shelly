@@ -6,7 +6,7 @@ h2. The Problem
 
 There are plenty of tools out there that makes it more or less straightforward to run scripts on a remote machine. What's funny though is that many people tend to spend more time on trying to get libraries to work on the local machine, because this is the place where the development and testing takes place. The reason for this is that compiling 3rd party libraries can be a real pain when it comes to different hardware architecture, OSs, OS versions, etc. No, package managers (such as port, apt-get, etc.) is not solving this all the way - sometimes not at all. What I usually do to in such cases is to find and copy-paste shell script "setup recipes" from docs/forums/blogs that - well, usually - works for a specific setup. This is not very scalable though, and actually a waste in many senses:
 
-Key reasons:
+*Key reasons:*
 
 * Old-school sharing => Setup recipes that works are spread thorough blogs/forums mostly, there's no single resource if you not having your own repository and cloning the scripts manually.
 * No versioning => Same 'ol scripts might stop being "the way of doing it" because of library changes
@@ -17,7 +17,7 @@ h2. A Solution: Shelly
 
 Shelly solves this by letting you run scripts - on your local machine - from a remote server like local shell commands almost. You don't need to get paid storage for this; Shelly can load scripts from code hosts solutions like GitHub, Gist, Pastie, etc., which is usually used for purposes of sharing code/snippets with each other anyway.
 
-Key concepts:
+*Key concepts:*
 
 * Run remotely stored setup scripts/recipes on local machine directly - without downloading/copying stuff manually.
 * No new DSL, just a command that runs a shell script resource (Note: No Windows scripting support).
@@ -88,7 +88,7 @@ Add alias:
 
 Run:
 
-<pre>shelly run hello_world</pre>
+<pre>shelly run quack</pre>
 
 h2. NOTE: Security Implications
 
