@@ -1,6 +1,6 @@
 h1. SHELLY
 
-Remotely stored shell scripts executable locally.
+_Remotely stored shell scripts executable locally._
 
 h2. The Problem
 
@@ -30,7 +30,7 @@ h2. Installation
 
 <pre>$ sudo gem install grimen-shelly</pre>
 
-h2. Dependencies
+h2. Dependencies&nbsp;
 
 <pre>$ sudo gem install activesupport</pre>
 <pre>$ sudo gem install octopi</pre>
@@ -78,7 +78,7 @@ h3. Repositories
 
 Add repository:
 
-<pre>shelly add repo github:grimen/my_shell_scripts</pre>
+<pre>$ shelly add repo github:grimen/my_shell_scripts</pre>
 
 Note: The files within this repo is now accessible. Example-file: @install_geoip-city.sh@
 
