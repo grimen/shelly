@@ -28,29 +28,34 @@ Shelly solves this by letting you run scripts - on your local machine - from a r
 
 h2. Installation
 
-<pre>sudo gem install grimen-shelly</pre>
+<pre>$ sudo gem install grimen-shelly</pre>
+
+h2. Dependencies
+
+<pre>$ sudo gem install activesupport</pre>
+<pre>$ sudo gem install octopi</pre>
 
 h2. Basic Usage
 
 Run *GitHub* script source:
 
-<pre>shelly run github:grimen/my_shell_scripts/install_geoip-city.sh</pre>
+<pre>$ shelly run github:grimen/my_shell_scripts/install_geoip-city.sh</pre>
 
 Run *Gist* script source:
 
-<pre>shelly run gist:112090</pre>
+<pre>$ shelly run gist:112090</pre>
 
 Run *Pastie* script source:
 
-<pre>shelly run pastie:478898</pre>
+<pre>$ shelly run pastie:478898</pre>
 
 Run *Pastebin* script source:
 
-<pre>shelly run pastebin:23233</pre>
+<pre>$ shelly run pastebin:23233</pre>
 
 Run *custom* script source:
 
-<pre>shelly run http://somedomain.com/my_scripts/quack.sh</pre>
+<pre>$ shelly run http://somedomain.com/my_scripts/quack.sh</pre>
 
 Example Output:
 
@@ -79,17 +84,17 @@ Note: The files within this repo is now accessible. Example-file: @install_geoip
 
 Run:
 
-<pre>shelly run install_geoip-city.sh</pre>
+<pre>$ shelly run install_geoip-city.sh</pre>
 
 h3. Aliases
 
 Add alias:
 
-<pre>shelly add alias quack:gist/112090</pre>
+<pre>$ shelly add alias quack:gist/112090</pre>
 
 Run:
 
-<pre>shelly run quack</pre>
+<pre>$ shelly run quack</pre>
 
 h2. NOTE: Security Implications
 
